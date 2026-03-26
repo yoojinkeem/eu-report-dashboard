@@ -281,13 +281,13 @@
 
 <script>
 const today = new Date(); today.setHours(0,0,0,0);
-const deadline = new Date('2026-05-18');
+const deadline = new Date('2026-05-16');
 const draftTarget = new Date('2026-04-30');
-const start = new Date('2026-03-26');
+const start = new Date('2026-03-16');
 
 const milestones = [
-  { label: 'Kick-off', date: new Date('2026-03-26'), type: 'done' },
-  { label: 'Check-ins begin', date: new Date('2026-03-30'), type: 'current' },
+  { label: 'Kick-off', date: new Date('2026-03-16'), type: 'done' },
+  { label: 'Check-ins begin', date: new Date('2026-03-16'), type: 'current' },
   { label: 'Consultations done', date: new Date('2026-04-15'), type: '' },
   { label: 'First draft', date: new Date('2026-04-30'), type: 'milestone' },
   { label: 'Review complete', date: new Date('2026-05-07'), type: '' },
@@ -314,7 +314,7 @@ const tasks = [
   { id: 't3', text: 'Map report outputs to responsible colleagues', owner: 'You', defaultDone: true },
   { id: 't4', text: 'Confirm format with Cappucine (EU) and request template', owner: 'You' },
   { id: 't5', text: 'Verify grant extension processing with finance', owner: 'You' },
-  { id: 't6', text: 'Prepare financial section and annexes', owner: 'Sofia' },
+  { id: 't6', text: 'Prepare financial section and annexes', owner: 'Sofia' 'Seb' },
   { id: 't7', text: 'Develop timeline & consultation plan for lessons learned', owner: 'You' },
   { id: 't8', text: 'Conduct staff consultations (lessons learned interviews)', owner: 'You' },
   { id: 't9', text: 'Integrate human rights & advocacy deliverables', owner: 'You' },
@@ -333,28 +333,28 @@ const team = [
 const inputs = [
   { id: 'i1', name: 'Social media analytics', from: 'Karoline' },
   { id: 'i2', name: 'Report format / template', from: 'Cappucine (EU)' },
-  { id: 'i3', name: 'Finalized strategy document', from: 'Isabel → Peter' },
+  { id: 'i3', name: 'Finalized strategy document', from: 'Yoojin → Peter' },
   { id: 'i4', name: 'Financial records & annexes', from: 'Sofia' },
   { id: 'i5', name: 'Deliverable outputs & pictures', from: 'All colleagues' },
-  { id: 'i6', name: 'Grant extension confirmation', from: 'Finance' },
+  { id: 'i6', name: 'Verify whether the grant extension was processed to ensure financial reporting aligns with finance records.', from: 'Finance' },
 ];
 
 const checkins = [
-  { id: 'c1', date: 'Week of 30 Mar', topic: 'Kick-off, task distribution' },
-  { id: 'c2', date: 'Week of 6 Apr', topic: 'Strategy doc & analytics follow-up' },
-  { id: 'c3', date: 'Week of 13 Apr', topic: 'Consultations progress check' },
-  { id: 'c4', date: 'Week of 20 Apr', topic: 'Draft sections review' },
-  { id: 'c5', date: 'Week of 27 Apr', topic: 'Pre-draft review & gaps' },
-  { id: 'c6', date: 'Week of 4 May', topic: 'Final review & financial section' },
-  { id: 'c7', date: 'Week of 11 May', topic: 'Submission prep & sign-off' },
+  { id: 'c1', date: 'Week of 16 Mar', topic: 'Kick-off, task distribution' },
+  { id: 'c2', date: 'Week of 1 Apr', topic: 'Strategy doc & analytics follow-up' },
+  { id: 'c3', date: 'Week of 8 Apr', topic: 'Consultations progress check' },
+  { id: 'c4', date: 'Week of 15 Apr', topic: 'Draft sections review' },
+  { id: 'c5', date: 'Week of 22 Apr', topic: 'Pre-draft review & gaps' },
+  { id: 'c6', date: 'Week of 29 Apr', topic: 'Final review & financial section' },
+  { id: 'c7', date: 'Week of 6 May', topic: 'Submission prep & sign-off' },
 ];
 
 const consults = [
-  { id: 'cs1', name: 'Staff member A', role: 'Programme delivery' },
-  { id: 'cs2', name: 'Staff member B', role: 'Human rights outputs' },
-  { id: 'cs3', name: 'Staff member C', role: 'Advocacy & communications' },
-  { id: 'cs4', name: 'Staff member D', role: 'Partnerships & coordination' },
-  { id: 'cs5', name: 'Staff member E', role: 'Finance & administration' },
+  { id: 'cs1', name: 'Various Teams', role: 'Programme delivery across responsible logframes' },
+  { id: 'cs2', name: 'Human Rights Cluster', role: 'Human rights outputs' },
+  { id: 'cs3', name: 'Comms Team', role: 'Advocacy & communications' },
+  { id: 'cs4', name: 'Grant Management Team', role: 'Partnerships & coordination' },
+  { id: 'cs5', name: 'Finance and Programme Mgmt', role: 'Finance & administration' },
 ];
 
 function fmt(d) { return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }); }
