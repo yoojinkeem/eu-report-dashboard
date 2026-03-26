@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EU Grant — Final Report Dashboard</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f5f5f3;
+    --bg-tertiary: #eeede9;
+    --text: #1a1a18;
+    --text-secondary: #5f5e5a;
+    --text-tertiary: #888780;
+    --border: rgba(0,0,0,0.12);
+    --border-md: rgba(0,0,0,0.2);
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --green: #1D9E75;
+    --green-bg: #E1F5EE;
+    --green-text: #0F6E56;
+    --blue: #185FA5;
+    --blue-bg: #E6F1FB;
+    --blue-text: #0C447C;
+    --amber: #BA7517;
+    --amber-bg: #FAEEDA;
+    --amber-text: #854F0B;
+    --red: #A32D2D;
+    --red-bg: #FCEBEB;
+    --red-text: #791F1F;
+    --purple-bg: #EEEDFE;
+    --purple-text: #3C3489;
+    --coral-bg: #FAECE7;
+    --coral-text: #712B13;
+    --pink-bg: #FBEAF0;
+    --pink-text: #72243E;
+    --teal-bg: #E1F5EE;
+    --teal-text: #0F6E56;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1a;
+      --bg-secondary: #252523;
+      --bg-tertiary: #2e2e2b;
+      --text: #f0ede6;
+      --text-secondary: #b4b2a9;
+      --text-tertiary: #6f6e6a;
+      --border: rgba(255,255,255,0.1);
+      --border-md: rgba(255,255,255,0.18);
+      --green-bg: #085041;
+      --green-text: #9FE1CB;
+      --blue-bg: #0C447C;
+      --blue-text: #B5D4F4;
+      --amber-bg: #633806;
+      --amber-text: #FAC775;
+      --red-bg: #501313;
+      --red-text: #F7C1C1;
+      --purple-bg: #26215C;
+      --purple-text: #CECBF6;
+      --coral-bg: #4A1B0C;
+      --coral-text: #F5C4B3;
+      --pink-bg: #4B1528;
+      --pink-text: #F4C0D1;
+      --teal-bg: #04342C;
+      --teal-text: #9FE1CB;
+    }
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg-tertiary);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 20px; font-weight: 600; color: var(--text); }
+  .subheader { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+  .header { margin-bottom: 1.5rem; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .last-updated { font-size: 11px; color: var(--text-tertiary); }
+  .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 1.25rem; }
+  @media (max-width: 600px) { .metrics { grid-template-columns: repeat(2, 1fr); } }
+  .metric { background: var(--bg); border-radius: var(--radius-lg); padding: 14px 16px; border: 0.5px solid var(--border); }
+  .metric-label { font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .metric-value { font-size: 24px; font-weight: 600; color: var(--text); }
+  .metric-sub { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; }
+  .progress-bar { width: 100%; height: 5px; background: var(--bg-secondary); border-radius: 3px; margin: 8px 0 4px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 3px; background: var(--green); }
+  .progress-fill.blue { background: var(--blue); }
+  .card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; }
+  .section-title { font-size: 11px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 12px; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
+  @media (max-width: 680px) { .grid2 { grid-template-columns: 1fr; } }
+  .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
+  @media (max-width: 680px) { .grid3 { grid-template-columns: 1fr; } }
+
+  /* Timeline */
+  .timeline-card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: 1.25rem; }
+  .tl-outer { position: relative; padding: 32px 0 48px; }
+  .tl-track { position: absolute; top: 38px; left: 20px; right: 20px; height: 3px; background: var(--bg-secondary); border-radius: 2px; }
+  .tl-progress { height: 100%; background: var(--green); border-radius: 2px; }
+  .tl-milestones { display: flex; justify-content: space-between; position: relative; }
+  .tl-point { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 0; }
+  .tl-dot-wrap { height: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+  .tl-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--border-md); background: var(--bg); position: relative; z-index: 2; }
+  .tl-dot.done { background: var(--green); border-color: var(--green); }
+  .tl-dot.current { background: var(--blue); border-color: var(--blue); box-shadow: 0 0 0 4px rgba(24,95,165,0.18); }
+  .tl-dot.milestone { background: var(--amber); border-color: var(--amber); }
+  .tl-dot.deadline { background: var(--red); border-color: var(--red); }
+  .tl-label { font-size: 11px; color: var(--text-secondary); text-align: center; max-width: 68px; line-height: 1.3; }
+  .tl-date { font-size: 10px; color: var(--text-tertiary); text-align: center; margin-top: 3px; }
+  .tl-legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-tertiary); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Tasks */
+  .task-list { display: flex; flex-direction: column; gap: 5px; }
+  .task-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 10px; border-radius: var(--radius-md); border: 0.5px solid var(--border); background: var(--bg); cursor: pointer; transition: background 0.12s; user-select: none; }
+  .task-item:hover { background: var(--bg-secondary); }
+  .task-item.done { opacity: 0.5; }
+  .task-check { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--border-md); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.12s; }
+  .task-check.checked { background: var(--green); border-color: var(--green); }
+  .task-check.checked::after { content: ''; width: 8px; height: 5px; border-left: 1.5px solid #fff; border-bottom: 1.5px solid #fff; transform: rotate(-45deg) translateY(-1px); display: block; }
+  .task-text { font-size: 13px; color: var(--text); flex: 1; line-height: 1.4; }
+  .task-item.done .task-text { text-decoration: line-through; color: var(--text-tertiary); }
+  .task-owner { font-size: 11px; color: var(--text-tertiary); flex-shrink: 0; padding-top: 1px; }
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .count-chip { font-size: 11px; color: var(--text-secondary); background: var(--bg-secondary); padding: 2px 8px; border-radius: 10px; }
+
+  /* Team */
+  .team-list { display: flex; flex-direction: column; gap: 10px; }
+  .team-member { display: flex; align-items: center; gap: 10px; }
+  .avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+  .member-name { font-size: 13px; font-weight: 500; color: var(--text); }
+  .member-role { font-size: 11px; color: var(--text-secondary); }
+  .member-info { flex: 1; min-width: 0; }
+
+  /* Badge */
+  .badge { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+  .badge-done { background: var(--green-bg); color: var(--green-text); }
+  .badge-pending { background: var(--amber-bg); color: var(--amber-text); }
+  .badge-urgent { background: var(--red-bg); color: var(--red-text); }
+  .badge-info { background: var(--blue-bg); color: var(--blue-text); }
+
+  /* Inputs */
+  .inputs-list { display: flex; flex-direction: column; gap: 6px; }
+  .input-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px; border-radius: var(--radius-md); background: var(--bg-secondary); font-size: 12px; }
+  .input-name { color: var(--text); font-weight: 500; }
+  .input-from { color: var(--text-tertiary); font-size: 11px; margin-top: 2px; }
+  .input-mark { cursor: pointer; font-size: 11px; color: var(--text-tertiary); padding: 3px 8px; border: 0.5px solid var(--border); border-radius: 6px; background: var(--bg); transition: all 0.12s; white-space: nowrap; }
+  .input-mark:hover { background: var(--green-bg); color: var(--green-text); border-color: var(--green); }
+  .input-mark.received { background: var(--green-bg); color: var(--green-text); border-color: transparent; cursor: default; }
+
+  /* Checkins */
+  .checkin-list { display: flex; flex-direction: column; gap: 5px; }
+  .checkin-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--radius-md); border: 0.5px solid var(--border); font-size: 12px; cursor: pointer; transition: background 0.12s; }
+  .checkin-item:hover { background: var(--bg-secondary); }
+  .checkin-item.held { opacity: 0.5; }
+  .checkin-check { width: 15px; height: 15px; border-radius: 50%; border: 1.5px solid var(--border-md); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .checkin-check.held { background: var(--green); border-color: var(--green); }
+  .checkin-check.held::after { content: ''; width: 7px; height: 4px; border-left: 1.5px solid #fff; border-bottom: 1.5px solid #fff; transform: rotate(-45deg) translateY(-1px); display: block; }
+  .checkin-date { flex: 1; color: var(--text); font-weight: 500; }
+  .checkin-topic { color: var(--text-secondary); flex: 2; font-size: 11px; }
+
+  /* Notes */
+  .notes-area { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+  .note-item { padding: 8px 10px; background: var(--bg-secondary); border-radius: var(--radius-md); font-size: 12px; color: var(--text); display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .note-date { font-size: 10px; color: var(--text-tertiary); flex-shrink: 0; }
+  .note-del { cursor: pointer; color: var(--text-tertiary); font-size: 14px; flex-shrink: 0; line-height: 1; }
+  .note-del:hover { color: var(--red); }
+  .note-input { width: 100%; padding: 8px 10px; font-size: 13px; border-radius: var(--radius-md); border: 0.5px solid var(--border); background: var(--bg); color: var(--text); resize: none; outline: none; font-family: inherit; }
+  .note-input:focus { border-color: var(--blue); }
+  .btn { padding: 7px 14px; font-size: 12px; border-radius: var(--radius-md); border: 0.5px solid var(--border); background: var(--bg); color: var(--text); cursor: pointer; font-family: inherit; transition: background 0.12s; }
+  .btn:hover { background: var(--bg-secondary); }
+  .btn-primary { background: var(--text); color: var(--bg); border-color: transparent; }
+  .btn-primary:hover { opacity: 0.85; }
+
+  /* Status bar */
+  .statusbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 1.25rem; font-size: 12px; color: var(--text-secondary); flex-wrap: wrap; gap: 8px; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); display: inline-block; margin-right: 6px; }
+  .status-dot.amber { background: var(--amber); }
+  .status-dot.red { background: var(--red); }
+
+  /* Consultation tracker */
+  .consult-list { display: flex; flex-direction: column; gap: 5px; }
+  .consult-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--radius-md); border: 0.5px solid var(--border); font-size: 12px; cursor: pointer; transition: background 0.12s; }
+  .consult-item:hover { background: var(--bg-secondary); }
+  .consult-item.done { opacity: 0.5; }
+  .consult-name { flex: 1; font-weight: 500; color: var(--text); }
+  .consult-role { color: var(--text-secondary); font-size: 11px; }
+  .consult-date { font-size: 11px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div>
+      <h1>EU Grant — Final Report</h1>
+      <div class="subheader">Penholder dashboard &middot; Submission deadline: 18 May 2026</div>
+    </div>
+    <div class="last-updated" id="last-updated"></div>
+  </div>
+
+  <div class="statusbar">
+    <div>
+      <span class="status-dot" id="status-dot"></span>
+      <span id="status-text"></span>
+    </div>
+    <div style="display:flex; gap: 16px; flex-wrap: wrap;">
+      <span>First draft target: <strong>30 April 2026</strong></span>
+      <span>Check-ins: <strong>Weekly from 30 Mar</strong></span>
+      <span>EU contact: <strong>Cappucine</strong></span>
+    </div>
+  </div>
+
+  <div class="metrics" id="metrics"></div>
+
+  <div class="timeline-card">
+    <div class="section-title">Project timeline</div>
+    <div class="tl-outer">
+      <div class="tl-track"><div class="tl-progress" id="tl-progress"></div></div>
+      <div class="tl-milestones" id="tl-milestones"></div>
+    </div>
+    <div class="tl-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Completed</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> Today</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div> Draft milestone</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> Final deadline</div>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:1.25rem;">
+    <div class="card">
+      <div class="section-header">
+        <div class="section-title" style="margin-bottom:0;">Action items from kick-off</div>
+        <span class="count-chip" id="task-count"></span>
+      </div>
+      <div class="task-list" id="task-list"></div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:1rem;">
+      <div class="card">
+        <div class="section-title">Team &amp; responsibilities</div>
+        <div class="team-list" id="team-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:1.25rem;">
+    <div class="card">
+      <div class="section-title">Pending inputs needed</div>
+      <div class="inputs-list" id="inputs-list"></div>
+    </div>
+    <div class="card">
+      <div class="section-header">
+        <div class="section-title" style="margin-bottom:0;">Lessons learned consultations</div>
+        <span class="count-chip" id="consult-count"></span>
+      </div>
+      <div class="consult-list" id="consult-list"></div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="section-title">Weekly 30-min check-ins</div>
+      <div class="checkin-list" id="checkin-list"></div>
+    </div>
+    <div class="card">
+      <div class="section-title">Notes &amp; reminders</div>
+      <div class="notes-area" id="notes-area"></div>
+      <textarea class="note-input" id="note-input" rows="2" placeholder="Add a note or reminder..."></textarea>
+      <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+        <button class="btn btn-primary" onclick="addNote()">+ Add note</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const today = new Date(); today.setHours(0,0,0,0);
+const deadline = new Date('2026-05-18');
+const draftTarget = new Date('2026-04-30');
+const start = new Date('2026-03-26');
+
+const milestones = [
+  { label: 'Kick-off', date: new Date('2026-03-26'), type: 'done' },
+  { label: 'Check-ins begin', date: new Date('2026-03-30'), type: 'current' },
+  { label: 'Consultations done', date: new Date('2026-04-15'), type: '' },
+  { label: 'First draft', date: new Date('2026-04-30'), type: 'milestone' },
+  { label: 'Review complete', date: new Date('2026-05-07'), type: '' },
+  { label: 'Submission', date: new Date('2026-05-18'), type: 'deadline' },
+];
+
+const STORAGE_KEY = 'eu-report-dashboard-v1';
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+}
+function saveState(s) { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
+
+let state = loadState();
+if (!state.tasks) state.tasks = {};
+if (!state.inputs) state.inputs = {};
+if (!state.checkins) state.checkins = {};
+if (!state.consults) state.consults = {};
+if (!state.notes) state.notes = [];
+
+const tasks = [
+  { id: 't1', text: 'Finalize strategy document review and share with Peter', owner: 'Isabel' },
+  { id: 't2', text: 'Reach out to Karoline for social media analytics', owner: 'You' },
+  { id: 't3', text: 'Map report outputs to responsible colleagues', owner: 'You', defaultDone: true },
+  { id: 't4', text: 'Confirm format with Cappucine (EU) and request template', owner: 'You' },
+  { id: 't5', text: 'Verify grant extension processing with finance', owner: 'You' },
+  { id: 't6', text: 'Prepare financial section and annexes', owner: 'Sofia' },
+  { id: 't7', text: 'Develop timeline & consultation plan for lessons learned', owner: 'You' },
+  { id: 't8', text: 'Conduct staff consultations (lessons learned interviews)', owner: 'You' },
+  { id: 't9', text: 'Integrate human rights & advocacy deliverables', owner: 'You' },
+];
+tasks.forEach(t => { if (state.tasks[t.id] === undefined && t.defaultDone) state.tasks[t.id] = true; });
+
+const team = [
+  { initials: 'ME', name: 'You', role: 'Penholder & report lead', bg: 'var(--blue-bg)', color: 'var(--blue-text)', status: 'Coordinating', badge: 'badge-info' },
+  { initials: 'IS', name: 'Isabel', role: 'Strategy document review', bg: 'var(--teal-bg)', color: 'var(--teal-text)', status: 'In progress', badge: 'badge-done' },
+  { initials: 'PE', name: 'Peter', role: 'Strategy doc recipient', bg: 'var(--purple-bg)', color: 'var(--purple-text)', status: 'Awaiting', badge: 'badge-pending' },
+  { initials: 'KA', name: 'Karoline', role: 'Analytics & social media outputs', bg: 'var(--amber-bg)', color: 'var(--amber-text)', status: 'To contact', badge: 'badge-pending' },
+  { initials: 'CA', name: 'Cappucine', role: 'EU contact (format/template)', bg: 'var(--coral-bg)', color: 'var(--coral-text)', status: 'To contact', badge: 'badge-pending' },
+  { initials: 'SO', name: 'Sofia', role: 'Financial section & annexes', bg: 'var(--pink-bg)', color: 'var(--pink-text)', status: 'To confirm', badge: 'badge-pending' },
+];
+
+const inputs = [
+  { id: 'i1', name: 'Social media analytics', from: 'Karoline' },
+  { id: 'i2', name: 'Report format / template', from: 'Cappucine (EU)' },
+  { id: 'i3', name: 'Finalized strategy document', from: 'Isabel → Peter' },
+  { id: 'i4', name: 'Financial records & annexes', from: 'Sofia' },
+  { id: 'i5', name: 'Deliverable outputs & pictures', from: 'All colleagues' },
+  { id: 'i6', name: 'Grant extension confirmation', from: 'Finance' },
+];
+
+const checkins = [
+  { id: 'c1', date: 'Week of 30 Mar', topic: 'Kick-off, task distribution' },
+  { id: 'c2', date: 'Week of 6 Apr', topic: 'Strategy doc & analytics follow-up' },
+  { id: 'c3', date: 'Week of 13 Apr', topic: 'Consultations progress check' },
+  { id: 'c4', date: 'Week of 20 Apr', topic: 'Draft sections review' },
+  { id: 'c5', date: 'Week of 27 Apr', topic: 'Pre-draft review & gaps' },
+  { id: 'c6', date: 'Week of 4 May', topic: 'Final review & financial section' },
+  { id: 'c7', date: 'Week of 11 May', topic: 'Submission prep & sign-off' },
+];
+
+const consults = [
+  { id: 'cs1', name: 'Staff member A', role: 'Programme delivery' },
+  { id: 'cs2', name: 'Staff member B', role: 'Human rights outputs' },
+  { id: 'cs3', name: 'Staff member C', role: 'Advocacy & communications' },
+  { id: 'cs4', name: 'Staff member D', role: 'Partnerships & coordination' },
+  { id: 'cs5', name: 'Staff member E', role: 'Finance & administration' },
+];
+
+function fmt(d) { return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }); }
+function daysLeft(d) { return Math.ceil((d - today) / 86400000); }
+
+function renderMetrics() {
+  const dl = daysLeft(deadline);
+  const dd = daysLeft(draftTarget);
+  const total = tasks.length;
+  const done = tasks.filter(t => state.tasks[t.id]).length;
+  const pct = Math.round((done / total) * 100);
+  const span = deadline - start;
+  const elapsed = today - start;
+  const timePct = Math.max(0, Math.min(100, Math.round((elapsed / span) * 100)));
+  const inputsDone = inputs.filter(i => state.inputs[i.id]).length;
+
+  document.getElementById('metrics').innerHTML = `
+    <div class="metric">
+      <div class="metric-label">Days to deadline</div>
+      <div class="metric-value" style="color:${dl < 14 ? 'var(--red)' : dl < 28 ? 'var(--amber)' : 'var(--text)'}">${dl}</div>
+      <div class="metric-sub">18 May 2026</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Days to first draft</div>
+      <div class="metric-value" style="color:${dd < 7 ? 'var(--red)' : dd < 14 ? 'var(--amber)' : 'var(--text)'}">${dd}</div>
+      <div class="metric-sub">Target: 30 April</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Tasks done</div>
+      <div class="metric-value">${done}/${total}</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="metric-sub">${pct}% complete</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Inputs received</div>
+      <div class="metric-value">${inputsDone}/${inputs.length}</div>
+      <div class="progress-bar"><div class="progress-fill blue" style="width:${Math.round(inputsDone/inputs.length*100)}%"></div></div>
+      <div class="metric-sub">${Math.round(inputsDone/inputs.length*100)}% gathered</div>
+    </div>
+  `;
+
+  const dl2 = daysLeft(deadline);
+  const dot = document.getElementById('status-dot');
+  const txt = document.getElementById('status-text');
+  if (dl2 < 7) { dot.className = 'status-dot red'; txt.textContent = 'Final stretch — submission imminent'; }
+  else if (dl2 < 21) { dot.className = 'status-dot amber'; txt.textContent = 'Approaching deadline — focus on review & sign-off'; }
+  else { dot.className = 'status-dot'; txt.textContent = 'On track — drafting phase'; }
+}
+
+function renderTimeline() {
+  const span = deadline - start;
+  const elapsed = Math.max(0, Math.min(span, today - start));
+  const pct = (elapsed / span) * 100;
+  document.getElementById('tl-progress').style.width = pct + '%';
+
+  document.getElementById('tl-milestones').innerHTML = milestones.map(m => {
+    const p = Math.max(0, Math.min(100, ((m.date - start) / span) * 100));
+    const isPast = m.date <= today;
+    const cls = m.type || (isPast ? 'done' : '');
+    return `<div class="tl-point" style="position:absolute;left:${p}%;transform:translateX(-50%);top:0;display:flex;flex-direction:column;align-items:center;">
+      <div class="tl-dot-wrap"><div class="tl-dot ${cls}"></div></div>
+      <div class="tl-label">${m.label}</div>
+      <div class="tl-date">${fmt(m.date)}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('tl-milestones').style.cssText = 'position:relative;height:80px;';
+}
+
+function renderTasks() {
+  const done = tasks.filter(t => state.tasks[t.id]).length;
+  document.getElementById('task-count').textContent = `${done}/${tasks.length} done`;
+  document.getElementById('task-list').innerHTML = tasks.map(t => {
+    const isDone = !!state.tasks[t.id];
+    return `<div class="task-item ${isDone ? 'done' : ''}" onclick="toggleTask('${t.id}')">
+      <div class="task-check ${isDone ? 'checked' : ''}"></div>
+      <div class="task-text">${t.text}</div>
+      <div class="task-owner">${t.owner}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderTeam() {
+  document.getElementById('team-list').innerHTML = team.map(m => `
+    <div class="team-member">
+      <div class="avatar" style="background:${m.bg};color:${m.color};">${m.initials}</div>
+      <div class="member-info">
+        <div class="member-name">${m.name}</div>
+        <div class="member-role">${m.role}</div>
+      </div>
+      <span class="badge ${m.badge}">${m.status}</span>
+    </div>`).join('');
+}
+
+function renderInputs() {
+  document.getElementById('inputs-list').innerHTML = inputs.map(i => {
+    const received = !!state.inputs[i.id];
+    return `<div class="input-item">
+      <div>
+        <div class="input-name">${i.name}</div>
+        <div class="input-from">From: ${i.from}</div>
+      </div>
+      <button class="input-mark ${received ? 'received' : ''}" onclick="${received ? '' : `markInput('${i.id}')`}">${received ? '&#10003; Received' : 'Mark received'}</button>
+    </div>`;
+  }).join('');
+}
+
+function renderCheckins() {
+  document.getElementById('checkin-list').innerHTML = checkins.map(c => {
+    const held = !!state.checkins[c.id];
+    return `<div class="checkin-item ${held ? 'held' : ''}" onclick="toggleCheckin('${c.id}')">
+      <div class="checkin-check ${held ? 'held' : ''}"></div>
+      <div class="checkin-date">${c.date}</div>
+      <div class="checkin-topic">${c.topic}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderConsults() {
+  const done = consults.filter(c => state.consults[c.id]).length;
+  document.getElementById('consult-count').textContent = `${done}/${consults.length} done`;
+  document.getElementById('consult-list').innerHTML = consults.map(c => {
+    const isDone = !!state.consults[c.id];
+    return `<div class="consult-item ${isDone ? 'done' : ''}" onclick="toggleConsult('${c.id}')">
+      <div class="task-check ${isDone ? 'checked' : ''}"></div>
+      <div class="member-info">
+        <div class="consult-name">${c.name}</div>
+        <div class="consult-role">${c.role}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderNotes() {
+  document.getElementById('notes-area').innerHTML = state.notes.map((n, i) => `
+    <div class="note-item">
+      <span>${n.text}</span>
+      <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+        <span class="note-date">${n.date}</span>
+        <span class="note-del" onclick="deleteNote(${i})">&times;</span>
+      </div>
+    </div>`).join('');
+}
+
+function toggleTask(id) { state.tasks[id] = !state.tasks[id]; saveState(state); renderTasks(); renderMetrics(); }
+function markInput(id) { state.inputs[id] = true; saveState(state); renderInputs(); renderMetrics(); }
+function toggleCheckin(id) { state.checkins[id] = !state.checkins[id]; saveState(state); renderCheckins(); }
+function toggleConsult(id) { state.consults[id] = !state.consults[id]; saveState(state); renderConsults(); }
+
+function addNote() {
+  const input = document.getElementById('note-input');
+  const text = input.value.trim();
+  if (!text) return;
+  const d = new Date();
+  state.notes.unshift({ text, date: d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) });
+  input.value = '';
+  saveState(state); renderNotes();
+}
+
+function deleteNote(i) { state.notes.splice(i, 1); saveState(state); renderNotes(); }
+
+document.getElementById('note-input').addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); addNote(); } });
+document.getElementById('last-updated').textContent = 'Last opened: ' + new Date().toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+
+renderMetrics(); renderTimeline(); renderTasks(); renderTeam(); renderInputs(); renderCheckins(); renderConsults(); renderNotes();
+</script>
+</body>
+</html>
