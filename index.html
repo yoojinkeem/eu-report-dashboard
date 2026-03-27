@@ -41,9 +41,7 @@ h1 { font-size: 20px; font-weight: 600; }
 .subheader { font-size: 13px; color: var(--text-sec); margin-top: 3px; }
 .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 10px; }
 .header-left { flex: 1; }
-.edit-hint { font-size: 11px; color: var(--text-ter); background: var(--amber-bg); color: var(--amber-text); padding: 4px 10px; border-radius: 20px; display: inline-flex; align-items: center; gap: 5px; }
-
-/* Cards & Grid */
+.edit-hint { font-size: 11px; background: var(--amber-bg); color: var(--amber-text); padding: 4px 10px; border-radius: 20px; display: inline-flex; align-items: center; gap: 5px; flex-shrink: 0; }
 .card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; }
 .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; margin-bottom: 1.25rem; }
 .grid4 { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-bottom: 1.25rem; }
@@ -51,8 +49,6 @@ h1 { font-size: 20px; font-weight: 600; }
 .section-title { font-size: 11px; font-weight: 600; color: var(--text-ter); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 12px; }
 .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 .count-chip { font-size: 11px; color: var(--text-sec); background: var(--bg-sec); padding: 2px 8px; border-radius: 10px; }
-
-/* Metrics */
 .metric { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; }
 .metric-label { font-size: 11px; color: var(--text-ter); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
 .metric-value { font-size: 24px; font-weight: 600; }
@@ -60,16 +56,13 @@ h1 { font-size: 20px; font-weight: 600; }
 .progress-bar { width: 100%; height: 5px; background: var(--bg-sec); border-radius: 3px; margin: 8px 0 4px; overflow: hidden; }
 .progress-fill { height: 100%; border-radius: 3px; background: var(--green); transition: width 0.4s; }
 .progress-fill.blue { background: var(--blue); }
-
-/* Timeline */
 .tl-card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: 1.25rem; }
 .tl-outer { position: relative; padding: 28px 0 52px; }
 .tl-track { position: absolute; top: 34px; left: 16px; right: 16px; height: 3px; background: var(--bg-sec); border-radius: 2px; }
 .tl-progress { height: 100%; background: var(--green); border-radius: 2px; }
 .tl-milestones { position: relative; height: 80px; }
 .tl-point { position: absolute; display: flex; flex-direction: column; align-items: center; transform: translateX(-50%); }
-.tl-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--border-md); background: var(--bg); z-index: 2; margin-bottom: 8px; cursor: pointer; transition: transform 0.15s; }
-.tl-dot:hover { transform: scale(1.2); }
+.tl-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--border-md); background: var(--bg); z-index: 2; margin-bottom: 8px; }
 .tl-dot.done { background: var(--green); border-color: var(--green); }
 .tl-dot.current { background: var(--blue); border-color: var(--blue); box-shadow: 0 0 0 4px rgba(24,95,165,0.18); }
 .tl-dot.milestone { background: var(--amber); border-color: var(--amber); }
@@ -79,36 +72,39 @@ h1 { font-size: 20px; font-weight: 600; }
 .tl-legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
 .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-ter); }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-
-/* Inline editing */
 [contenteditable] { outline: none; border-radius: 4px; transition: background 0.12s, box-shadow 0.12s; cursor: text; }
 [contenteditable]:hover { background: var(--bg-sec); }
 [contenteditable]:focus { background: var(--bg-sec); box-shadow: 0 0 0 2px var(--blue); padding: 1px 4px; }
 [contenteditable]:empty::before { content: attr(data-placeholder); color: var(--text-ter); font-style: italic; pointer-events: none; }
-
-/* Badges */
 .badge { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 600; white-space: nowrap; }
 .badge-done { background: var(--green-bg); color: var(--green-text); }
 .badge-pending { background: var(--amber-bg); color: var(--amber-text); }
-.badge-info { background: var(--blue-bg); color: var(--blue-text); }
 .badge-select { font-size: 10px; border: none; border-radius: 10px; padding: 2px 4px; font-weight: 600; cursor: pointer; font-family: inherit; }
 
-/* Tasks */
-.task-list { display: flex; flex-direction: column; gap: 5px; }
-.task-item { display: flex; align-items: flex-start; gap: 8px; padding: 7px 9px; border-radius: var(--radius); border: 0.5px solid var(--border); background: var(--bg); transition: background 0.12s; }
+/* Drag handle — three horizontal lines */
+.drag-handle { display: flex; flex-direction: column; gap: 3px; justify-content: center; align-items: center; width: 14px; padding: 2px 0; cursor: grab; flex-shrink: 0; opacity: 0; transition: opacity 0.12s; }
+.drag-handle span { display: block; width: 12px; height: 1.5px; background: var(--text-ter); border-radius: 1px; }
+.drag-handle:active { cursor: grabbing; }
+.draggable-row:hover .drag-handle { opacity: 1; }
+.draggable-row.dragging { opacity: 0.3; }
+.drag-placeholder { border: 1.5px dashed var(--blue); border-radius: var(--radius); background: var(--blue-bg); min-height: 36px; }
+
+.task-list, .inputs-list, .consult-list, .checkin-list { display: flex; flex-direction: column; gap: 5px; }
+.task-item { display: flex; align-items: flex-start; gap: 6px; padding: 7px 9px; border-radius: var(--radius); border: 0.5px solid var(--border); background: var(--bg); transition: background 0.12s; }
 .task-item:hover { background: var(--bg-sec); }
-.task-item.done { opacity: 0.5; }
 .task-check { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--border-md); flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.12s; }
 .task-check.checked { background: var(--green); border-color: var(--green); }
 .task-check.checked::after { content: ''; width: 8px; height: 5px; border-left: 1.5px solid #fff; border-bottom: 1.5px solid #fff; transform: rotate(-45deg) translateY(-1px); display: block; }
 .task-text { font-size: 13px; color: var(--text); flex: 1; line-height: 1.4; min-width: 0; }
-.task-item.done .task-text { text-decoration: line-through; color: var(--text-ter); }
+.done-text { text-decoration: line-through; color: var(--text-ter); }
 .task-owner { font-size: 11px; color: var(--text-ter); flex-shrink: 0; padding-top: 2px; min-width: 40px; text-align: right; }
 .task-del { cursor: pointer; color: var(--text-ter); font-size: 16px; flex-shrink: 0; line-height: 1; padding: 0 2px; opacity: 0; transition: opacity 0.12s; }
-.task-item:hover .task-del { opacity: 1; }
+.task-item:hover .task-del,
+.input-item:hover .task-del,
+.consult-item:hover .task-del,
+.checkin-item:hover .task-del,
+.team-member:hover .task-del { opacity: 1; }
 .task-del:hover { color: var(--red); }
-
-/* Add row */
 .add-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
 .add-input { flex: 1; padding: 6px 9px; font-size: 12px; border-radius: var(--radius); border: 0.5px solid var(--border); background: var(--bg-sec); color: var(--text); font-family: inherit; outline: none; }
 .add-input:focus { border-color: var(--blue); background: var(--bg); }
@@ -118,50 +114,34 @@ h1 { font-size: 20px; font-weight: 600; }
 .btn-add:hover { background: var(--bg-sec); }
 .btn-primary { background: var(--text); color: var(--bg); border-color: transparent; }
 .btn-primary:hover { opacity: 0.85; background: var(--text); }
-
-/* Team */
 .team-list { display: flex; flex-direction: column; gap: 10px; }
-.team-member { display: flex; align-items: center; gap: 10px; padding: 4px; border-radius: var(--radius); transition: background 0.12s; }
+.team-member { display: flex; align-items: center; gap: 10px; padding: 4px 6px; border-radius: var(--radius); transition: background 0.12s; }
 .team-member:hover { background: var(--bg-sec); }
-.team-member:hover .task-del { opacity: 1; }
 .avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; cursor: pointer; }
 .member-info { flex: 1; min-width: 0; }
 .member-name { font-size: 13px; font-weight: 500; color: var(--text); }
 .member-role { font-size: 11px; color: var(--text-sec); }
-
-/* Inputs needed */
-.inputs-list { display: flex; flex-direction: column; gap: 5px; }
-.input-item { display: flex; align-items: center; gap: 8px; padding: 7px 9px; border-radius: var(--radius); background: var(--bg-sec); }
-.input-item:hover .task-del { opacity: 1; }
+.input-item { display: flex; align-items: center; gap: 6px; padding: 7px 9px; border-radius: var(--radius); background: var(--bg-sec); border: 0.5px solid transparent; }
+.input-item:hover { border-color: var(--border); }
 .input-name { font-size: 13px; color: var(--text); flex: 1; font-weight: 500; }
 .input-from { font-size: 11px; color: var(--text-ter); }
 .mark-btn { font-size: 11px; padding: 3px 9px; border-radius: 6px; border: 0.5px solid var(--border); background: var(--bg); color: var(--text-sec); cursor: pointer; font-family: inherit; transition: all 0.12s; white-space: nowrap; }
 .mark-btn:hover { background: var(--green-bg); color: var(--green-text); }
 .mark-btn.received { background: var(--green-bg); color: var(--green-text); border-color: transparent; cursor: default; }
-
-/* Consultations */
-.consult-list { display: flex; flex-direction: column; gap: 5px; }
-.consult-item { display: flex; align-items: center; gap: 8px; padding: 7px 9px; border-radius: var(--radius); border: 0.5px solid var(--border); background: var(--bg); transition: background 0.12s; cursor: pointer; }
+.consult-item { display: flex; align-items: center; gap: 6px; padding: 7px 9px; border-radius: var(--radius); border: 0.5px solid var(--border); background: var(--bg); transition: background 0.12s; }
 .consult-item:hover { background: var(--bg-sec); }
-.consult-item:hover .task-del { opacity: 1; }
 .consult-item.done { opacity: 0.5; }
 .consult-info { flex: 1; min-width: 0; }
 .consult-name { font-size: 13px; font-weight: 500; color: var(--text); }
 .consult-role { font-size: 11px; color: var(--text-sec); }
-
-/* Check-ins */
-.checkin-list { display: flex; flex-direction: column; gap: 5px; }
-.checkin-item { display: flex; align-items: center; gap: 8px; padding: 7px 9px; border-radius: var(--radius); border: 0.5px solid var(--border); background: var(--bg); transition: background 0.12s; }
+.checkin-item { display: flex; align-items: center; gap: 6px; padding: 7px 9px; border-radius: var(--radius); border: 0.5px solid var(--border); background: var(--bg); transition: background 0.12s; }
 .checkin-item:hover { background: var(--bg-sec); }
 .checkin-item.held { opacity: 0.5; }
-.checkin-item:hover .task-del { opacity: 1; }
 .check-circle { width: 15px; height: 15px; border-radius: 50%; border: 1.5px solid var(--border-md); flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 .check-circle.held { background: var(--green); border-color: var(--green); }
 .check-circle.held::after { content: ''; width: 7px; height: 4px; border-left: 1.5px solid #fff; border-bottom: 1.5px solid #fff; transform: rotate(-45deg) translateY(-1px); display: block; }
 .checkin-date { font-size: 12px; font-weight: 500; color: var(--text); min-width: 110px; }
 .checkin-topic { font-size: 11px; color: var(--text-sec); flex: 1; }
-
-/* Notes */
 .notes-area { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; min-height: 20px; }
 .note-item { padding: 8px 10px; background: var(--bg-sec); border-radius: var(--radius); font-size: 12px; color: var(--text); display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
 .note-date { font-size: 10px; color: var(--text-ter); flex-shrink: 0; margin-top: 2px; }
@@ -169,26 +149,16 @@ h1 { font-size: 20px; font-weight: 600; }
 .note-del:hover { color: var(--red); }
 .note-input { width: 100%; padding: 8px 10px; font-size: 13px; border-radius: var(--radius); border: 0.5px solid var(--border); background: var(--bg); color: var(--text); resize: none; outline: none; font-family: inherit; }
 .note-input:focus { border-color: var(--blue); }
-
-/* Status bar */
 .statusbar { display: flex; align-items: center; justify-content: space-between; padding: 9px 14px; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 1.25rem; font-size: 12px; color: var(--text-sec); flex-wrap: wrap; gap: 8px; }
 .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
-
-/* Avatar colors */
-.av-blue { background: var(--blue-bg); color: var(--blue-text); }
-.av-teal { background: var(--teal-bg); color: var(--teal-text); }
-.av-amber { background: var(--amber-bg); color: var(--amber-text); }
-.av-purple { background: var(--purple-bg); color: var(--purple-text); }
-.av-coral { background: var(--coral-bg); color: var(--coral-text); }
-.av-pink { background: var(--pink-bg); color: var(--pink-text); }
-.av-green { background: var(--green-bg); color: var(--green-text); }
-.av-red { background: var(--red-bg); color: var(--red-text); }
-.avatar-colors { display: flex; gap: 4px; flex-wrap: wrap; }
-.av-pick { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: border-color 0.12s; }
-.av-pick:hover, .av-pick.selected { border-color: var(--text); }
-
-/* Separator */
-.spacer { margin-bottom: 1.25rem; }
+.av-blue{background:var(--blue-bg);color:var(--blue-text);}
+.av-teal{background:var(--teal-bg);color:var(--teal-text);}
+.av-amber{background:var(--amber-bg);color:var(--amber-text);}
+.av-purple{background:var(--purple-bg);color:var(--purple-text);}
+.av-coral{background:var(--coral-bg);color:var(--coral-text);}
+.av-pink{background:var(--pink-bg);color:var(--pink-text);}
+.av-green{background:var(--green-bg);color:var(--green-text);}
+.av-red{background:var(--red-bg);color:var(--red-text);}
 </style>
 </head>
 <body>
@@ -196,24 +166,24 @@ h1 { font-size: 20px; font-weight: 600; }
 
   <div class="header">
     <div class="header-left">
-      <h1 contenteditable="true" data-key="title" data-placeholder="Project title">EU Grant — Final Report</h1>
-      <div class="subheader" contenteditable="true" data-key="subtitle" data-placeholder="Subtitle">Penholder dashboard · Submission deadline: 18 May 2026</div>
+      <h1 contenteditable="true" data-key="title">EU Grant — Final Report</h1>
+      <div class="subheader" contenteditable="true" data-key="subtitle">Penholder dashboard · Submission deadline: 18 May 2026</div>
     </div>
-    <span class="edit-hint">✏ Click any text to edit &amp; save</span>
+    <span class="edit-hint">✏ Click any text to edit &nbsp;·&nbsp; ⠿ Drag rows to reorder</span>
   </div>
 
   <div class="statusbar">
     <div><span class="status-dot" id="status-dot"></span><span id="status-text"></span></div>
     <div style="display:flex;gap:16px;flex-wrap:wrap;">
-      <span>First draft: <strong contenteditable="true" data-key="draft-target" data-placeholder="date">30 April 2026</strong></span>
-      <span>Check-ins: <strong contenteditable="true" data-key="checkin-freq" data-placeholder="frequency">Weekly from 30 Mar</strong></span>
-      <span>EU contact: <strong contenteditable="true" data-key="eu-contact" data-placeholder="name">Cappucine</strong></span>
+      <span>First draft: <strong contenteditable="true" data-key="draft-target">30 April 2026</strong></span>
+      <span>Check-ins: <strong contenteditable="true" data-key="checkin-freq">Weekly from 30 Mar</strong></span>
+      <span>EU contact: <strong contenteditable="true" data-key="eu-contact">Cappucine</strong></span>
     </div>
   </div>
 
   <div class="grid4" id="metrics"></div>
 
-  <div class="tl-card spacer">
+  <div class="tl-card">
     <div class="section-title">Project timeline</div>
     <div class="tl-outer">
       <div class="tl-track"><div class="tl-progress" id="tl-progress"></div></div>
@@ -227,35 +197,33 @@ h1 { font-size: 20px; font-weight: 600; }
     </div>
   </div>
 
-  <div class="grid2">
+  <div class="grid2" style="margin-top:1.25rem;">
     <div class="card">
       <div class="section-header">
         <div class="section-title" style="margin-bottom:0">Action items</div>
         <span class="count-chip" id="task-count"></span>
       </div>
       <div class="task-list" id="task-list"></div>
-      <div class="add-row" style="margin-top:10px;">
+      <div class="add-row">
         <input class="add-input" id="new-task-text" placeholder="New task..." />
         <input class="add-input-sm" id="new-task-owner" placeholder="Owner" />
         <button class="btn-add" onclick="addTask()">+ Add</button>
       </div>
     </div>
-
     <div style="display:flex;flex-direction:column;gap:1rem;">
       <div class="card">
         <div class="section-title">Team &amp; responsibilities</div>
         <div class="team-list" id="team-list"></div>
-        <div class="add-row" style="margin-top:10px;">
+        <div class="add-row">
           <input class="add-input" id="new-member-name" placeholder="Name" style="max-width:100px;" />
           <input class="add-input" id="new-member-role" placeholder="Role / responsibility" />
           <button class="btn-add" onclick="addMember()">+ Add</button>
         </div>
       </div>
-
       <div class="card">
         <div class="section-title">Pending inputs needed</div>
         <div class="inputs-list" id="inputs-list"></div>
-        <div class="add-row" style="margin-top:10px;">
+        <div class="add-row">
           <input class="add-input" id="new-input-name" placeholder="Input needed..." />
           <input class="add-input-sm" id="new-input-from" placeholder="From" />
           <button class="btn-add" onclick="addInput()">+ Add</button>
@@ -271,140 +239,207 @@ h1 { font-size: 20px; font-weight: 600; }
         <span class="count-chip" id="consult-count"></span>
       </div>
       <div class="consult-list" id="consult-list"></div>
-      <div class="add-row" style="margin-top:10px;">
+      <div class="add-row">
         <input class="add-input" id="new-consult-name" placeholder="Name" style="max-width:120px;" />
         <input class="add-input" id="new-consult-role" placeholder="Role / area" />
         <button class="btn-add" onclick="addConsult()">+ Add</button>
       </div>
     </div>
-
-    <div style="display:flex;flex-direction:column;gap:1rem;">
-      <div class="card">
-        <div class="section-title">Weekly check-ins</div>
-        <div class="checkin-list" id="checkin-list"></div>
-        <div class="add-row" style="margin-top:10px;">
-          <input class="add-input" id="new-checkin-date" placeholder="Week of..." style="max-width:130px;" />
-          <input class="add-input" id="new-checkin-topic" placeholder="Topic / agenda" />
-          <button class="btn-add" onclick="addCheckin()">+ Add</button>
-        </div>
+    <div class="card">
+      <div class="section-title">Weekly check-ins</div>
+      <div class="checkin-list" id="checkin-list"></div>
+      <div class="add-row">
+        <input class="add-input" id="new-checkin-date" placeholder="Week of..." style="max-width:130px;" />
+        <input class="add-input" id="new-checkin-topic" placeholder="Topic / agenda" />
+        <button class="btn-add" onclick="addCheckin()">+ Add</button>
       </div>
+    </div>
+  </div>
 
-      <div class="card">
-        <div class="section-title">Notes &amp; reminders</div>
-        <div class="notes-area" id="notes-area"></div>
-        <textarea class="note-input" id="note-input" rows="2" placeholder="Type a note and press Enter..."></textarea>
-        <div style="display:flex;justify-content:flex-end;margin-top:8px;">
-          <button class="btn-add btn-primary" onclick="addNote()">+ Add note</button>
-        </div>
+  <div class="grid2" style="margin-top:1rem;">
+    <div class="card">
+      <div class="section-title">Notes &amp; reminders</div>
+      <div class="notes-area" id="notes-area"></div>
+      <textarea class="note-input" id="note-input" rows="2" placeholder="Type a note and press Enter..."></textarea>
+      <div style="display:flex;justify-content:flex-end;margin-top:8px;">
+        <button class="btn-add btn-primary" onclick="addNoteEntry('notes','note-input','notes-area')">+ Add note</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="section-title">EC concerns memo</div>
+      <div class="notes-area" id="ec-area"></div>
+      <textarea class="note-input" id="ec-input" rows="2" placeholder="Type an EC concern and press Enter..."></textarea>
+      <div style="display:flex;justify-content:flex-end;margin-top:8px;">
+        <button class="btn-add btn-primary" onclick="addNoteEntry('ec','ec-input','ec-area')">+ Add concern</button>
       </div>
     </div>
   </div>
 
 </div>
-
 <script>
-const KEY = 'eu-dash-v2';
+const KEY = 'eu-dash-v3';
 const today = new Date(); today.setHours(0,0,0,0);
 const deadline = new Date('2026-05-18');
 const draftTarget = new Date('2026-04-30');
 const start = new Date('2026-03-26');
-
 const AVATAR_COLORS = ['av-blue','av-teal','av-amber','av-purple','av-coral','av-pink','av-green','av-red'];
 
 const DEFAULT = {
-  fields: { title: 'EU Grant — Final Report', subtitle: 'Penholder dashboard · Submission deadline: 18 May 2026', 'draft-target': '30 April 2026', 'checkin-freq': 'Weekly from 30 Mar', 'eu-contact': 'Cappucine' },
-  tasks: [
-    { id:'t1', text:'Finalize strategy document review and share with Peter', owner:'Isabel', done:false },
-    { id:'t2', text:'Reach out to Karoline for social media analytics', owner:'You', done:false },
-    { id:'t3', text:'Map report outputs to responsible colleagues', owner:'You', done:true },
-    { id:'t4', text:'Confirm format with Cappucine (EU) and request template', owner:'You', done:false },
-    { id:'t5', text:'Verify grant extension processing with finance', owner:'You', done:false },
-    { id:'t6', text:'Prepare financial section and annexes', owner:'Sofia', done:false },
-    { id:'t7', text:'Develop timeline & consultation plan for lessons learned', owner:'You', done:false },
-    { id:'t8', text:'Conduct staff consultations (lessons learned interviews)', owner:'You', done:false },
-    { id:'t9', text:'Integrate human rights & advocacy deliverables', owner:'You', done:false },
+  fields:{'title':'EU Grant — Final Report','subtitle':'Penholder dashboard · Submission deadline: 18 May 2026','draft-target':'30 April 2026','checkin-freq':'Weekly from 30 Mar','eu-contact':'Cappucine'},
+  tasks:[
+    {id:'t1',text:'Finalize strategy document review and share with Peter',owner:'Isabel',done:false},
+    {id:'t2',text:'Reach out to Karoline for social media analytics',owner:'You',done:false},
+    {id:'t3',text:'Map report outputs to responsible colleagues',owner:'You',done:true},
+    {id:'t4',text:'Confirm format with Cappucine (EU) and request template',owner:'You',done:false},
+    {id:'t5',text:'Verify grant extension processing with finance',owner:'You',done:false},
+    {id:'t6',text:'Prepare financial section and annexes',owner:'Sofia',done:false},
+    {id:'t7',text:'Develop timeline & consultation plan for lessons learned',owner:'You',done:false},
+    {id:'t8',text:'Conduct staff consultations (lessons learned interviews)',owner:'You',done:false},
+    {id:'t9',text:'Integrate human rights & advocacy deliverables',owner:'You',done:false},
   ],
-  team: [
-    { id:'m1', name:'You', role:'Penholder & report lead', color:'av-blue', status:'Coordinating' },
-    { id:'m2', name:'Isabel', role:'Strategy document review', color:'av-teal', status:'In progress' },
-    { id:'m3', name:'Peter', role:'Strategy doc recipient', color:'av-purple', status:'Awaiting' },
-    { id:'m4', name:'Karoline', role:'Analytics & social media outputs', color:'av-amber', status:'To contact' },
-    { id:'m5', name:'Cappucine', role:'EU contact (format/template)', color:'av-coral', status:'To contact' },
-    { id:'m6', name:'Sofia', role:'Financial section & annexes', color:'av-pink', status:'To confirm' },
+  team:[
+    {id:'m1',name:'You',role:'Penholder & report lead',color:'av-blue',status:'Coordinating'},
+    {id:'m2',name:'Isabel',role:'Strategy document review',color:'av-teal',status:'In progress'},
+    {id:'m3',name:'Peter',role:'Strategy doc recipient',color:'av-purple',status:'Awaiting'},
+    {id:'m4',name:'Karoline',role:'Analytics & social media outputs',color:'av-amber',status:'To contact'},
+    {id:'m5',name:'Cappucine',role:'EU contact (format/template)',color:'av-coral',status:'To contact'},
+    {id:'m6',name:'Sofia',role:'Financial section & annexes',color:'av-pink',status:'To confirm'},
   ],
-  inputs: [
-    { id:'i1', name:'Social media analytics', from:'Karoline', received:false },
-    { id:'i2', name:'Report format / template', from:'Cappucine (EU)', received:false },
-    { id:'i3', name:'Finalized strategy document', from:'Isabel → Peter', received:false },
-    { id:'i4', name:'Financial records & annexes', from:'Sofia', received:false },
-    { id:'i5', name:'Deliverable outputs & pictures', from:'All colleagues', received:false },
-    { id:'i6', name:'Grant extension confirmation', from:'Finance', received:false },
+  inputs:[
+    {id:'i1',name:'Social media analytics',from:'Karoline',received:false},
+    {id:'i2',name:'Report format / template',from:'Cappucine (EU)',received:false},
+    {id:'i3',name:'Finalized strategy document',from:'Isabel → Peter',received:false},
+    {id:'i4',name:'Financial records & annexes',from:'Sofia',received:false},
+    {id:'i5',name:'Deliverable outputs & pictures',from:'All colleagues',received:false},
+    {id:'i6',name:'Grant extension confirmation',from:'Finance',received:false},
   ],
-  consults: [
-    { id:'cs1', name:'Staff member A', role:'Programme delivery', done:false },
-    { id:'cs2', name:'Staff member B', role:'Human rights outputs', done:false },
-    { id:'cs3', name:'Staff member C', role:'Advocacy & communications', done:false },
-    { id:'cs4', name:'Staff member D', role:'Partnerships & coordination', done:false },
-    { id:'cs5', name:'Staff member E', role:'Finance & administration', done:false },
+  consults:[
+    {id:'cs1',name:'Staff member A',role:'Programme delivery',done:false},
+    {id:'cs2',name:'Staff member B',role:'Human rights outputs',done:false},
+    {id:'cs3',name:'Staff member C',role:'Advocacy & communications',done:false},
+    {id:'cs4',name:'Staff member D',role:'Partnerships & coordination',done:false},
+    {id:'cs5',name:'Staff member E',role:'Finance & administration',done:false},
   ],
-  checkins: [
-    { id:'c1', date:'Week of 30 Mar', topic:'Kick-off, task distribution', held:false },
-    { id:'c2', date:'Week of 6 Apr', topic:'Strategy doc & analytics follow-up', held:false },
-    { id:'c3', date:'Week of 13 Apr', topic:'Consultations progress check', held:false },
-    { id:'c4', date:'Week of 20 Apr', topic:'Draft sections review', held:false },
-    { id:'c5', date:'Week of 27 Apr', topic:'Pre-draft review & gaps', held:false },
-    { id:'c6', date:'Week of 4 May', topic:'Final review & financial section', held:false },
-    { id:'c7', date:'Week of 11 May', topic:'Submission prep & sign-off', held:false },
+  checkins:[
+    {id:'c1',date:'Week of 30 Mar',topic:'Kick-off, task distribution',held:false},
+    {id:'c2',date:'Week of 6 Apr',topic:'Strategy doc & analytics follow-up',held:false},
+    {id:'c3',date:'Week of 13 Apr',topic:'Consultations progress check',held:false},
+    {id:'c4',date:'Week of 20 Apr',topic:'Draft sections review',held:false},
+    {id:'c5',date:'Week of 27 Apr',topic:'Pre-draft review & gaps',held:false},
+    {id:'c6',date:'Week of 4 May',topic:'Final review & financial section',held:false},
+    {id:'c7',date:'Week of 11 May',topic:'Submission prep & sign-off',held:false},
   ],
-  notes: [],
-  milestones: [
-    { label:'Kick-off', date:'2026-03-26', type:'done' },
-    { label:'Check-ins begin', date:'2026-03-30', type:'current' },
-    { label:'Consultations done', date:'2026-04-15', type:'' },
-    { label:'First draft', date:'2026-04-30', type:'milestone' },
-    { label:'Review complete', date:'2026-05-07', type:'' },
-    { label:'Submission', date:'2026-05-18', type:'deadline' },
+  notes:[],
+  ec:[],
+  milestones:[
+    {label:'Kick-off',date:'2026-03-26',type:'done'},
+    {label:'Check-ins begin',date:'2026-03-30',type:'current'},
+    {label:'Consultations done',date:'2026-04-15',type:''},
+    {label:'First draft',date:'2026-04-30',type:'milestone'},
+    {label:'Review complete',date:'2026-05-07',type:''},
+    {label:'Submission',date:'2026-05-18',type:'deadline'},
   ],
 };
 
-function load() {
-  try { const s = localStorage.getItem(KEY); return s ? JSON.parse(s) : JSON.parse(JSON.stringify(DEFAULT)); }
-  catch { return JSON.parse(JSON.stringify(DEFAULT)); }
+function load(){try{const s=localStorage.getItem(KEY);return s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT));}catch{return JSON.parse(JSON.stringify(DEFAULT));}}
+function save(){localStorage.setItem(KEY,JSON.stringify(state));}
+let state=load();
+if(!state.ec)state.ec=[];
+
+function uid(){return '_'+Math.random().toString(36).slice(2,9);}
+function fmt(d){return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short'});}
+function daysLeft(d){return Math.ceil((new Date(d)-today)/86400000);}
+function initials(n){return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)||'??';}
+
+function handle(){
+  return `<div class="drag-handle" title="Drag to reorder"><span></span><span></span><span></span></div>`;
 }
-function save() { localStorage.setItem(KEY, JSON.stringify(state)); }
-let state = load();
 
-function uid() { return '_' + Math.random().toString(36).slice(2,9); }
-function fmt(d) { return new Date(d).toLocaleDateString('en-GB', { day:'numeric', month:'short' }); }
-function daysLeft(d) { return Math.ceil((new Date(d) - today) / 86400000); }
-function initials(name) { return name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2) || '??'; }
+// ── Drag and drop ──────────────────────────────────────────────────
+function setupDrag(listEl, stateKey, renderFn){
+  let dragging=null, placeholder=null;
 
-// Editable fields
-function initFields() {
-  document.querySelectorAll('[data-key]').forEach(el => {
-    const k = el.dataset.key;
-    if (state.fields && state.fields[k]) el.textContent = state.fields[k];
-    el.addEventListener('input', () => {
-      if (!state.fields) state.fields = {};
-      state.fields[k] = el.textContent;
+  function getRows(){return [...listEl.querySelectorAll('.draggable-row')];}
+
+  function createPlaceholder(height){
+    const p=document.createElement('div');
+    p.className='drag-placeholder';
+    p.style.height=height+'px';
+    return p;
+  }
+
+  listEl.addEventListener('mousedown', e=>{
+    const h=e.target.closest('.drag-handle');
+    if(!h)return;
+    const row=h.closest('.draggable-row');
+    if(!row)return;
+
+    e.preventDefault();
+    dragging=row;
+    const rect=row.getBoundingClientRect();
+    const offsetY=e.clientY-rect.top;
+    const w=rect.width, h2=rect.height;
+
+    placeholder=createPlaceholder(h2);
+    row.parentNode.insertBefore(placeholder,row.nextSibling);
+
+    row.classList.add('dragging');
+    row.style.cssText=`position:fixed;top:${rect.top}px;left:${rect.left}px;width:${w}px;z-index:9999;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,0.15);`;
+
+    function onMove(ev){
+      const cy=ev.clientY||ev.touches?.[0]?.clientY;
+      if(cy===undefined)return;
+      row.style.top=(cy-offsetY)+'px';
+
+      const rows=getRows();
+      let target=null, insertBefore=true;
+      for(const r of rows){
+        if(r===row)continue;
+        const rb=r.getBoundingClientRect();
+        if(cy<rb.top+rb.height/2){target=r;insertBefore=true;break;}
+        else{target=r;insertBefore=false;}
+      }
+      if(target){
+        if(insertBefore)listEl.insertBefore(placeholder,target);
+        else{if(target.nextSibling)listEl.insertBefore(placeholder,target.nextSibling);else listEl.appendChild(placeholder);}
+      }
+    }
+
+    function onUp(){
+      document.removeEventListener('mousemove',onMove);
+      document.removeEventListener('mouseup',onUp);
+      row.classList.remove('dragging');
+      row.style.cssText='';
+
+      const arr=state[stateKey];
+      const fromId=row.dataset.id;
+      const rows=getRows();
+      const phIdx=[...listEl.children].indexOf(placeholder);
+
+      placeholder.replaceWith(row);
+
+      const visibleRows=[...listEl.querySelectorAll('.draggable-row')];
+      const newOrder=visibleRows.map(r=>r.dataset.id);
+      const sorted=newOrder.map(id=>arr.find(x=>x.id===id)).filter(Boolean);
+      state[stateKey]=sorted;
       save();
-    });
-    el.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); el.blur(); } });
+      renderFn();
+      dragging=null; placeholder=null;
+    }
+
+    document.addEventListener('mousemove',onMove);
+    document.addEventListener('mouseup',onUp);
   });
 }
 
-function renderMetrics() {
-  const dl = daysLeft(deadline);
-  const dd = daysLeft(draftTarget);
-  const total = state.tasks.length;
-  const done = state.tasks.filter(t=>t.done).length;
-  const pct = total ? Math.round(done/total*100) : 0;
-  const inp = state.inputs.filter(i=>i.received).length;
-  const inPct = state.inputs.length ? Math.round(inp/state.inputs.length*100) : 0;
-  const span = deadline - start;
-  const timePct = Math.max(0,Math.min(100,Math.round((today-start)/span*100)));
-
-  document.getElementById('metrics').innerHTML = `
+// ── Renders ────────────────────────────────────────────────────────
+function renderMetrics(){
+  const dl=daysLeft(deadline),dd=daysLeft(draftTarget);
+  const total=state.tasks.length,done=state.tasks.filter(t=>t.done).length;
+  const pct=total?Math.round(done/total*100):0;
+  const inp=state.inputs.filter(i=>i.received).length;
+  const inPct=state.inputs.length?Math.round(inp/state.inputs.length*100):0;
+  document.getElementById('metrics').innerHTML=`
     <div class="metric"><div class="metric-label">Days to deadline</div>
       <div class="metric-value" style="color:${dl<14?'var(--red)':dl<28?'var(--amber)':'var(--text)'}">${dl}</div>
       <div class="metric-sub">18 May 2026</div></div>
@@ -419,63 +454,61 @@ function renderMetrics() {
       <div class="metric-value">${inp}/${state.inputs.length}</div>
       <div class="progress-bar"><div class="progress-fill blue" style="width:${inPct}%"></div></div>
       <div class="metric-sub">${inPct}% gathered</div></div>`;
-
-  const dot = document.getElementById('status-dot');
-  const txt = document.getElementById('status-text');
-  const dl2 = daysLeft(deadline);
-  if (dl2 < 7) { dot.style.background='var(--red)'; txt.textContent='Final stretch — submission imminent'; }
-  else if (dl2 < 21) { dot.style.background='var(--amber)'; txt.textContent='Approaching deadline — focus on review & sign-off'; }
-  else { dot.style.background='var(--green)'; txt.textContent='On track — drafting phase'; }
+  const dl2=daysLeft(deadline);
+  const dot=document.getElementById('status-dot'),txt=document.getElementById('status-text');
+  if(dl2<7){dot.style.background='var(--red)';txt.textContent='Final stretch — submission imminent';}
+  else if(dl2<21){dot.style.background='var(--amber)';txt.textContent='Approaching deadline — focus on review & sign-off';}
+  else{dot.style.background='var(--green)';txt.textContent='On track — drafting phase';}
 }
 
-function renderTimeline() {
-  const span = deadline - start;
-  const pct = Math.max(0,Math.min(100,(today-start)/span*100));
-  document.getElementById('tl-progress').style.width = pct + '%';
-  document.getElementById('tl-milestones').innerHTML = state.milestones.map(m => {
-    const p = Math.max(0,Math.min(100,((new Date(m.date)-start)/span*100)));
-    const isPast = new Date(m.date) <= today;
-    const cls = m.type || (isPast?'done':'');
-    return `<div class="tl-point" style="left:${p}%;top:0;">
-      <div class="tl-dot ${cls}"></div>
-      <div class="tl-label">${m.label}</div>
-      <div class="tl-date">${fmt(m.date)}</div>
-    </div>`;
+function renderTimeline(){
+  const span=deadline-start;
+  document.getElementById('tl-progress').style.width=Math.max(0,Math.min(100,(today-start)/span*100))+'%';
+  document.getElementById('tl-milestones').innerHTML=state.milestones.map(m=>{
+    const p=Math.max(0,Math.min(100,((new Date(m.date)-start)/span*100)));
+    const isPast=new Date(m.date)<=today;
+    const cls=m.type||(isPast?'done':'');
+    return `<div class="tl-point" style="left:${p}%;top:0;"><div class="tl-dot ${cls}"></div><div class="tl-label">${m.label}</div><div class="tl-date">${fmt(m.date)}</div></div>`;
   }).join('');
 }
 
-function renderTasks() {
-  const done = state.tasks.filter(t=>t.done).length;
-  document.getElementById('task-count').textContent = `${done}/${state.tasks.length} done`;
-  document.getElementById('task-list').innerHTML = state.tasks.map(t => `
-    <div class="task-item ${t.done?'done':''}">
+function renderTasks(){
+  const done=state.tasks.filter(t=>t.done).length;
+  document.getElementById('task-count').textContent=`${done}/${state.tasks.length} done`;
+  const el=document.getElementById('task-list');
+  el.innerHTML=state.tasks.map(t=>`
+    <div class="task-item draggable-row" data-id="${t.id}">
+      ${handle()}
       <div class="task-check ${t.done?'checked':''}" onclick="toggleTask('${t.id}')"></div>
-      <div class="task-text" contenteditable="true" onblur="editTask('${t.id}','text',this.textContent)">${t.text}</div>
+      <div class="task-text ${t.done?'done-text':''}" contenteditable="true" onblur="editTask('${t.id}','text',this.textContent)">${t.text}</div>
       <div class="task-owner" contenteditable="true" onblur="editTask('${t.id}','owner',this.textContent)">${t.owner}</div>
       <span class="task-del" onclick="deleteTask('${t.id}')">&times;</span>
     </div>`).join('');
+  setupDrag(el,'tasks',renderTasks);
 }
 
-function renderTeam() {
-  const statusOptions = ['Coordinating','In progress','Awaiting','To contact','To confirm','Done'];
-  document.getElementById('team-list').innerHTML = state.team.map(m => {
-    const opts = statusOptions.map(s => `<option value="${s}" ${m.status===s?'selected':''}>${s}</option>`).join('');
-    const badgeClass = m.status==='In progress'||m.status==='Coordinating'||m.status==='Done' ? 'badge-done' : 'badge-pending';
+function renderTeam(){
+  const opts=['Coordinating','In progress','Awaiting','To contact','To confirm','Done'];
+  document.getElementById('team-list').innerHTML=state.team.map(m=>{
+    const o=opts.map(s=>`<option value="${s}" ${m.status===s?'selected':''}>${s}</option>`).join('');
+    const isDone=m.status==='In progress'||m.status==='Coordinating'||m.status==='Done';
     return `<div class="team-member">
-      <div class="avatar ${m.color}" title="Click to change color" onclick="cycleColor('${m.id}')">${initials(m.name)}</div>
+      <div class="avatar ${m.color}" onclick="cycleColor('${m.id}')" title="Click to change colour">${initials(m.name)}</div>
       <div class="member-info">
         <div class="member-name" contenteditable="true" onblur="editMember('${m.id}','name',this.textContent)">${m.name}</div>
         <div class="member-role" contenteditable="true" onblur="editMember('${m.id}','role',this.textContent)">${m.role}</div>
       </div>
-      <select class="badge badge-select ${badgeClass}" onchange="editMember('${m.id}','status',this.value)" style="background:${badgeClass==='badge-done'?'var(--green-bg)':'var(--amber-bg)'};color:${badgeClass==='badge-done'?'var(--green-text)':'var(--amber-text)'};">${opts}</select>
+      <select class="badge badge-select" style="background:${isDone?'var(--green-bg)':'var(--amber-bg)'};color:${isDone?'var(--green-text)':'var(--amber-text)'};" onchange="editMember('${m.id}','status',this.value)">${o}</select>
       <span class="task-del" onclick="deleteMember('${m.id}')">&times;</span>
     </div>`;
   }).join('');
 }
 
-function renderInputs() {
-  document.getElementById('inputs-list').innerHTML = state.inputs.map(i => `
-    <div class="input-item">
+function renderInputs(){
+  const el=document.getElementById('inputs-list');
+  el.innerHTML=state.inputs.map(i=>`
+    <div class="input-item draggable-row" data-id="${i.id}">
+      ${handle()}
       <div style="flex:1;min-width:0;">
         <div class="input-name" contenteditable="true" onblur="editInput('${i.id}','name',this.textContent)">${i.name}</div>
         <div class="input-from" contenteditable="true" onblur="editInput('${i.id}','from',this.textContent)">From: ${i.from}</div>
@@ -483,129 +516,136 @@ function renderInputs() {
       <button class="mark-btn ${i.received?'received':''}" onclick="${i.received?'':` markInput('${i.id}')`}">${i.received?'&#10003; Received':'Mark received'}</button>
       <span class="task-del" onclick="deleteInput('${i.id}')">&times;</span>
     </div>`).join('');
+  setupDrag(el,'inputs',renderInputs);
 }
 
-function renderConsults() {
-  const done = state.consults.filter(c=>c.done).length;
-  document.getElementById('consult-count').textContent = `${done}/${state.consults.length} done`;
-  document.getElementById('consult-list').innerHTML = state.consults.map(c => `
-    <div class="consult-item ${c.done?'done':''}" onclick="toggleConsult('${c.id}')">
-      <div class="task-check ${c.done?'checked':''}"></div>
+function renderConsults(){
+  const done=state.consults.filter(c=>c.done).length;
+  document.getElementById('consult-count').textContent=`${done}/${state.consults.length} done`;
+  const el=document.getElementById('consult-list');
+  el.innerHTML=state.consults.map(c=>`
+    <div class="consult-item draggable-row ${c.done?'done':''}" data-id="${c.id}">
+      ${handle()}
+      <div class="task-check ${c.done?'checked':''}" onclick="toggleConsult('${c.id}')"></div>
       <div class="consult-info" onclick="event.stopPropagation()">
         <div class="consult-name" contenteditable="true" onblur="editConsult('${c.id}','name',this.textContent)">${c.name}</div>
         <div class="consult-role" contenteditable="true" onblur="editConsult('${c.id}','role',this.textContent)">${c.role}</div>
       </div>
       <span class="task-del" onclick="event.stopPropagation();deleteConsult('${c.id}')">&times;</span>
     </div>`).join('');
+  setupDrag(el,'consults',renderConsults);
 }
 
-function renderCheckins() {
-  document.getElementById('checkin-list').innerHTML = state.checkins.map(c => `
-    <div class="checkin-item ${c.held?'held':''}">
+function renderCheckins(){
+  const el=document.getElementById('checkin-list');
+  el.innerHTML=state.checkins.map(c=>`
+    <div class="checkin-item draggable-row ${c.held?'held':''}" data-id="${c.id}">
+      ${handle()}
       <div class="check-circle ${c.held?'held':''}" onclick="toggleCheckin('${c.id}')"></div>
       <div class="checkin-date" contenteditable="true" onblur="editCheckin('${c.id}','date',this.textContent)">${c.date}</div>
       <div class="checkin-topic" contenteditable="true" onblur="editCheckin('${c.id}','topic',this.textContent)">${c.topic}</div>
       <span class="task-del" onclick="deleteCheckin('${c.id}')">&times;</span>
     </div>`).join('');
+  setupDrag(el,'checkins',renderCheckins);
 }
 
-function renderNotes() {
-  document.getElementById('notes-area').innerHTML = state.notes.map((n,i) => `
+function renderNotesArea(sk,areaId){
+  document.getElementById(areaId).innerHTML=state[sk].map((n,i)=>`
     <div class="note-item">
-      <span contenteditable="true" onblur="editNote(${i},this.textContent)">${n.text}</span>
+      <span contenteditable="true" onblur="editNoteEntry('${sk}',${i},this.textContent)">${n.text}</span>
       <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
         <span class="note-date">${n.date}</span>
-        <span class="note-del" onclick="deleteNote(${i})">&times;</span>
+        <span class="note-del" onclick="deleteNoteEntry('${sk}',${i},'${areaId}')">&times;</span>
       </div>
     </div>`).join('');
 }
 
-// Toggle / edit / delete — Tasks
-function toggleTask(id) { const t = state.tasks.find(t=>t.id===id); if(t){t.done=!t.done; save(); renderTasks(); renderMetrics(); } }
-function editTask(id, field, val) { const t = state.tasks.find(t=>t.id===id); if(t){t[field]=val.trim(); save();} }
-function deleteTask(id) { state.tasks = state.tasks.filter(t=>t.id!==id); save(); renderTasks(); renderMetrics(); }
-function addTask() {
-  const text = document.getElementById('new-task-text').value.trim();
-  const owner = document.getElementById('new-task-owner').value.trim() || 'You';
-  if (!text) return;
-  state.tasks.push({ id:uid(), text, owner, done:false });
-  document.getElementById('new-task-text').value = '';
-  document.getElementById('new-task-owner').value = '';
-  save(); renderTasks(); renderMetrics();
+// ── Actions ────────────────────────────────────────────────────────
+function toggleTask(id){const t=state.tasks.find(t=>t.id===id);if(t){t.done=!t.done;save();renderTasks();renderMetrics();}}
+function editTask(id,f,v){const t=state.tasks.find(t=>t.id===id);if(t){t[f]=v.trim();save();}}
+function deleteTask(id){state.tasks=state.tasks.filter(t=>t.id!==id);save();renderTasks();renderMetrics();}
+function addTask(){
+  const text=document.getElementById('new-task-text').value.trim();
+  const owner=document.getElementById('new-task-owner').value.trim()||'You';
+  if(!text)return;
+  state.tasks.push({id:uid(),text,owner,done:false});
+  document.getElementById('new-task-text').value='';
+  document.getElementById('new-task-owner').value='';
+  save();renderTasks();renderMetrics();
 }
-
-// Team
-function editMember(id, field, val) { const m = state.team.find(m=>m.id===id); if(m){m[field]=val.trim(); save(); if(field==='status'||field==='name') renderTeam();} }
-function deleteMember(id) { state.team = state.team.filter(m=>m.id!==id); save(); renderTeam(); }
-function cycleColor(id) { const m = state.team.find(m=>m.id===id); if(m){const i=AVATAR_COLORS.indexOf(m.color); m.color=AVATAR_COLORS[(i+1)%AVATAR_COLORS.length]; save(); renderTeam();} }
-function addMember() {
-  const name = document.getElementById('new-member-name').value.trim();
-  const role = document.getElementById('new-member-role').value.trim();
-  if (!name) return;
-  state.team.push({ id:uid(), name, role:role||'Team member', color:AVATAR_COLORS[state.team.length%AVATAR_COLORS.length], status:'To contact' });
-  document.getElementById('new-member-name').value = '';
-  document.getElementById('new-member-role').value = '';
-  save(); renderTeam();
+function editMember(id,f,v){const m=state.team.find(m=>m.id===id);if(m){m[f]=v.trim();save();if(f==='status'||f==='name')renderTeam();}}
+function deleteMember(id){state.team=state.team.filter(m=>m.id!==id);save();renderTeam();}
+function cycleColor(id){const m=state.team.find(m=>m.id===id);if(m){const i=AVATAR_COLORS.indexOf(m.color);m.color=AVATAR_COLORS[(i+1)%AVATAR_COLORS.length];save();renderTeam();}}
+function addMember(){
+  const name=document.getElementById('new-member-name').value.trim();
+  const role=document.getElementById('new-member-role').value.trim();
+  if(!name)return;
+  state.team.push({id:uid(),name,role:role||'Team member',color:AVATAR_COLORS[state.team.length%AVATAR_COLORS.length],status:'To contact'});
+  document.getElementById('new-member-name').value='';
+  document.getElementById('new-member-role').value='';
+  save();renderTeam();
 }
-
-// Inputs
-function editInput(id, field, val) { const i = state.inputs.find(i=>i.id===id); if(i){ if(field==='from') val=val.replace(/^From:\s*/,''); i[field]=val.trim(); save();} }
-function markInput(id) { const i = state.inputs.find(i=>i.id===id); if(i){i.received=true; save(); renderInputs(); renderMetrics();} }
-function deleteInput(id) { state.inputs = state.inputs.filter(i=>i.id!==id); save(); renderInputs(); renderMetrics(); }
-function addInput() {
-  const name = document.getElementById('new-input-name').value.trim();
-  const from = document.getElementById('new-input-from').value.trim();
-  if (!name) return;
-  state.inputs.push({ id:uid(), name, from:from||'TBC', received:false });
-  document.getElementById('new-input-name').value = '';
-  document.getElementById('new-input-from').value = '';
-  save(); renderInputs(); renderMetrics();
+function editInput(id,f,v){const i=state.inputs.find(i=>i.id===id);if(i){if(f==='from')v=v.replace(/^From:\s*/,'');i[f]=v.trim();save();}}
+function markInput(id){const i=state.inputs.find(i=>i.id===id);if(i){i.received=true;save();renderInputs();renderMetrics();}}
+function deleteInput(id){state.inputs=state.inputs.filter(i=>i.id!==id);save();renderInputs();renderMetrics();}
+function addInput(){
+  const name=document.getElementById('new-input-name').value.trim();
+  const from=document.getElementById('new-input-from').value.trim();
+  if(!name)return;
+  state.inputs.push({id:uid(),name,from:from||'TBC',received:false});
+  document.getElementById('new-input-name').value='';
+  document.getElementById('new-input-from').value='';
+  save();renderInputs();renderMetrics();
 }
-
-// Consults
-function editConsult(id, field, val) { const c = state.consults.find(c=>c.id===id); if(c){c[field]=val.trim(); save();} }
-function toggleConsult(id) { const c = state.consults.find(c=>c.id===id); if(c){c.done=!c.done; save(); renderConsults();} }
-function deleteConsult(id) { state.consults = state.consults.filter(c=>c.id!==id); save(); renderConsults(); }
-function addConsult() {
-  const name = document.getElementById('new-consult-name').value.trim();
-  const role = document.getElementById('new-consult-role').value.trim();
-  if (!name) return;
-  state.consults.push({ id:uid(), name, role:role||'Staff', done:false });
-  document.getElementById('new-consult-name').value = '';
-  document.getElementById('new-consult-role').value = '';
-  save(); renderConsults();
+function editConsult(id,f,v){const c=state.consults.find(c=>c.id===id);if(c){c[f]=v.trim();save();}}
+function toggleConsult(id){const c=state.consults.find(c=>c.id===id);if(c){c.done=!c.done;save();renderConsults();}}
+function deleteConsult(id){state.consults=state.consults.filter(c=>c.id!==id);save();renderConsults();}
+function addConsult(){
+  const name=document.getElementById('new-consult-name').value.trim();
+  const role=document.getElementById('new-consult-role').value.trim();
+  if(!name)return;
+  state.consults.push({id:uid(),name,role:role||'Staff',done:false});
+  document.getElementById('new-consult-name').value='';
+  document.getElementById('new-consult-role').value='';
+  save();renderConsults();
 }
-
-// Checkins
-function editCheckin(id, field, val) { const c = state.checkins.find(c=>c.id===id); if(c){c[field]=val.trim(); save();} }
-function toggleCheckin(id) { const c = state.checkins.find(c=>c.id===id); if(c){c.held=!c.held; save(); renderCheckins();} }
-function deleteCheckin(id) { state.checkins = state.checkins.filter(c=>c.id!==id); save(); renderCheckins(); }
-function addCheckin() {
-  const date = document.getElementById('new-checkin-date').value.trim();
-  const topic = document.getElementById('new-checkin-topic').value.trim();
-  if (!date) return;
-  state.checkins.push({ id:uid(), date, topic:topic||'TBC', held:false });
-  document.getElementById('new-checkin-date').value = '';
-  document.getElementById('new-checkin-topic').value = '';
-  save(); renderCheckins();
+function editCheckin(id,f,v){const c=state.checkins.find(c=>c.id===id);if(c){c[f]=v.trim();save();}}
+function toggleCheckin(id){const c=state.checkins.find(c=>c.id===id);if(c){c.held=!c.held;save();renderCheckins();}}
+function deleteCheckin(id){state.checkins=state.checkins.filter(c=>c.id!==id);save();renderCheckins();}
+function addCheckin(){
+  const date=document.getElementById('new-checkin-date').value.trim();
+  const topic=document.getElementById('new-checkin-topic').value.trim();
+  if(!date)return;
+  state.checkins.push({id:uid(),date,topic:topic||'TBC',held:false});
+  document.getElementById('new-checkin-date').value='';
+  document.getElementById('new-checkin-topic').value='';
+  save();renderCheckins();
 }
-
-// Notes
-function addNote() {
-  const input = document.getElementById('note-input');
-  const text = input.value.trim();
-  if (!text) return;
-  state.notes.unshift({ text, date: new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short'}) });
-  input.value = '';
-  save(); renderNotes();
+function addNoteEntry(sk,inputId,areaId){
+  const input=document.getElementById(inputId);
+  const text=input.value.trim();
+  if(!text)return;
+  state[sk].unshift({text,date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short'})});
+  input.value='';
+  save();renderNotesArea(sk,areaId);
 }
-function editNote(i, val) { if(state.notes[i]){state.notes[i].text=val.trim(); save();} }
-function deleteNote(i) { state.notes.splice(i,1); save(); renderNotes(); }
+function editNoteEntry(sk,i,val){if(state[sk][i]){state[sk][i].text=val.trim();save();}}
+function deleteNoteEntry(sk,i,areaId){state[sk].splice(i,1);save();renderNotesArea(sk,areaId);}
 
-document.getElementById('note-input').addEventListener('keydown', e => { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();addNote();} });
-document.querySelectorAll('.add-input, .add-input-sm').forEach(el => {
-  el.addEventListener('keydown', e => { if(e.key==='Enter'){e.preventDefault(); el.closest('.add-row').querySelector('.btn-add').click();} });
+document.getElementById('note-input').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();addNoteEntry('notes','note-input','notes-area');}});
+document.getElementById('ec-input').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();addNoteEntry('ec','ec-input','ec-area');}});
+document.querySelectorAll('.add-input,.add-input-sm').forEach(el=>{
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();el.closest('.add-row').querySelector('.btn-add').click();}});
 });
+
+function initFields(){
+  document.querySelectorAll('[data-key]').forEach(el=>{
+    const k=el.dataset.key;
+    if(state.fields&&state.fields[k])el.textContent=state.fields[k];
+    el.addEventListener('input',()=>{if(!state.fields)state.fields={};state.fields[k]=el.textContent;save();});
+    el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();el.blur();}});
+  });
+}
 
 initFields();
 renderMetrics();
@@ -615,7 +655,8 @@ renderTeam();
 renderInputs();
 renderConsults();
 renderCheckins();
-renderNotes();
+renderNotesArea('notes','notes-area');
+renderNotesArea('ec','ec-area');
 </script>
 </body>
 </html>
